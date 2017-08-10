@@ -6,12 +6,12 @@ import { Button, Card, CardSection, Input, Spinner } from './common';
 class LoginForm extends Component {
     state = { email: '', password: '', error: '', loading: false };
 
+    // Handle event when user presses 'Log In' buttton
     onButtonPress() {
         const { email, password } = this.state;
 
         this.setState({ error: '', loading: true });
 
-        debugger;
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(this.onLoginSuccess.bind(this))
             .catch(() => {
@@ -21,10 +21,12 @@ class LoginForm extends Component {
             });
     }
 
+    // Set state when login fail
     onLoginFail() {
         this.setState({ error: 'Authentication Failed.', loading: false });
     }
 
+    // Set state when login success
     onLoginSuccess() {
         this.setState({
             email: '',
@@ -34,6 +36,7 @@ class LoginForm extends Component {
         });
     }
 
+    // Render button when state is loading or not
     renderButton() {
         if (this.state.loading) {
             return <Spinner size="small" />
